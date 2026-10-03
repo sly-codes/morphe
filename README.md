@@ -32,7 +32,7 @@ Built with plain HTML, CSS and JavaScript, and [p5.js](https://p5js.org) in WebG
 The project uses ES modules, so it has to be served over HTTP. Opening `index.html` directly from the file system will not work.
 
 ```bash
-git clone https://github.com/<your-username>/morphe.git
+git clone https://github.com/sly-codes/morphe.git
 cd morphe
 ```
 
@@ -62,11 +62,16 @@ morphe/
 │   └── scroll.js   Scroll progress, section navigation and reveal
 ├── video/
 │   ├── demo.gif    Short preview (README)
-│   └── demo.mp4    Full demo recording
+│   ├── demo.mp4    Full demo recording
+│   └── diagram.png Architecture diagram
 └── favicon.svg
 ```
 
 ## How it works
+
+<p align="center">
+  <img src="video/diagram.png" alt="Architecture diagram" width="520">
+</p>
 
 1. **Seeds.** Each of the 2,400 points gets a fixed seed: its index plus a few random numbers from a seeded generator, so the cloud looks the same on every load.
 2. **Forms.** A form is a function `(seed, time, out) => void` that writes a position inside a unit sphere. Forms are evaluated every frame, which is why they can move.
