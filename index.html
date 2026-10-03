@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Morphe - generative 3D forms</title>
+    <meta
+      name="description"
+      content="One cloud of points, five mathematical forms. A scroll-driven 3D experiment built with p5.js."
+    />
+    <meta name="theme-color" content="#07080b" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js" defer></script>
+    <script src="js/main.js" type="module"></script>
+  </head>
+  <body>
+    <div class="scene" id="scene" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#sphere">morphe</a>
+      <span class="topbar__meta">p5.js · webgl</span>
+    </header>
+
+    <nav class="rail" aria-label="Sections">
+      <a href="#sphere" data-nav><span>Sphere</span></a>
+      <a href="#knot" data-nav><span>Knot</span></a>
+      <a href="#wave" data-nav><span>Wave</span></a>
+      <a href="#galaxy" data-nav><span>Galaxy</span></a>
+      <a href="#bloom" data-nav><span>Bloom</span></a>
+    </nav>
+
+    <main>
+      <section class="panel panel--hero" id="sphere" data-section>
+        <div class="panel__body">
+          <p class="panel__index">01 / 05 - Sphere</p>
+          <h1 class="panel__title">Morphe</h1>
+          <p class="panel__text">
+            One cloud of points, five mathematical forms. Scroll and watch each one turn into the
+            next.
+          </p>
+          <p class="formula">θ = i · 137.5° &nbsp; y = 1 - 2i / n</p>
+          <p class="hint">Scroll to begin · click anywhere to pulse</p>
+        </div>
+      </section>
+
+      <section class="panel" id="knot" data-section>
+        <div class="panel__body">
+          <p class="panel__index">02 / 05</p>
+          <h2 class="panel__title">Knot</h2>
+          <p class="panel__text">
+            A (2, 3) torus knot. The line circles the center twice while winding three times through
+            the hole, and the points slowly drift along it.
+          </p>
+          <p class="formula">r = 2 + cos 3φ &nbsp; (r cos 2φ, r sin 2φ, sin 3φ)</p>
+        </div>
+      </section>
+
+      <section class="panel" id="wave" data-section>
+        <div class="panel__body">
+          <p class="panel__index">03 / 05</p>
+          <h2 class="panel__title">Wave</h2>
+          <p class="panel__text">
+            A flat grid, lifted by two crossing sine waves and a ripple that spreads from the
+            middle.
+          </p>
+          <p class="formula">y = sin(3x + t) · cos(3z + t) + sin(9d - 2t)</p>
+        </div>
+      </section>
+
+      <section class="panel" id="galaxy" data-section>
+        <div class="panel__body">
+          <p class="panel__index">04 / 05</p>
+          <h2 class="panel__title">Galaxy</h2>
+          <p class="panel__text">
+            Three spiral arms. Points close to the core orbit faster than the ones on the edge, so
+            the spiral keeps winding.
+          </p>
+          <p class="formula">θ = 2πk / 3 + 3.4r + t / (0.35 + r)</p>
+        </div>
+      </section>
+
+      <section class="panel" id="bloom" data-section>
+        <div class="panel__body">
+          <p class="panel__index">05 / 05</p>
+          <h2 class="panel__title">Bloom</h2>
+          <p class="panel__text">
+            Back to the sphere, but its radius now follows the angles. The surface folds into petals
+            that keep turning.
+          </p>
+          <p class="formula">r = 0.8 + 0.22 · sin 4θ · sin(3φ + t)</p>
+        </div>
+        <footer class="footer">
+          <span
+            >Built with <a href="https://p5js.org" target="_blank" rel="noopener">p5.js</a></span
+          >
+          <a href="#sphere">Back to top</a>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>
