@@ -18,7 +18,7 @@ Built with plain HTML, CSS and JavaScript, [p5.js](https://p5js.org) in WebGL mo
 - **Interaction**: the scene follows the mouse, and a click sends a pulse through the cloud.
 - **Reactive sound**: an optional ambient soundtrack generated live. Each form has its own chord, scrolling brightens the sound, a click rings a bell, and the cloud moves with the volume.
 - **Section navigation**: a dot menu on the right shows where you are and jumps to any form.
-- **Responsive**: on small screens the form sits above the text.
+- **Responsive on every screen**: side by side on landscape screens (laptops, desktops, ultrawide, phones turned sideways), stacked on portrait screens (phones, tablets). Type, spacing and point size scale with the viewport, and the 3D form is placed from the same CSS layout as the text.
 - **Accessible**: real HTML content, keyboard-friendly navigation, and support for `prefers-reduced-motion`.
 
 ## The forms

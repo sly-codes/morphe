@@ -3,6 +3,7 @@ import { POINT_COUNT, createSeeds, shapes } from './shapes.js';
 const BACKGROUND = [7, 8, 11];
 const COLOR_STEPS = 8;
 const DUST_COUNT = 500;
+const RAIL_SPACE = 120;
 
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 const lerp = (a, b, k) => a + (b - a) * k;
@@ -48,18 +49,41 @@ export function createScene(state) {
   const from = [0, 0, 0];
   const to = [0, 0, 0];
 
-  const view = { progress: state.progress, x: 0, y: 0, offsetX: 0, offsetY: 0, scale: 1, burst: 0 };
+  const view = {
+    progress: state.progress,
+    x: 0,
+    y: 0,
+    offsetX: 0,
+    offsetY: 0,
+    scale: 1,
+    pointSize: 1,
+    burst: 0,
+  };
   let time = 0;
   let accent = '';
+  let layout = 'side';
+  let textEdge = 0;
+
+  // The layout comes from CSS (--layout), so the form always matches the text placement.
+  // In the side layout the form is centered in the space left of the text column.
+  const readLayout = () => {
+    layout = getComputedStyle(document.documentElement).getPropertyValue('--layout').trim();
+    const text = document.querySelector('.panel__body');
+    textEdge = text ? text.offsetLeft + text.offsetWidth : 0;
+  };
 
   return (p) => {
     p.setup = () => {
       p.pixelDensity(Math.min(2, p.displayDensity()));
       p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+      readLayout();
       document.body.classList.add('is-ready');
     };
 
-    p.windowResized = () => p.resizeCanvas(p.windowWidth, p.windowHeight);
+    p.windowResized = () => {
+      p.resizeCanvas(p.windowWidth, p.windowHeight);
+      readLayout();
+    };
 
     p.draw = () => {
       const dt = Math.min(p.deltaTime, 50) / 1000;
@@ -89,14 +113,17 @@ export function createScene(state) {
     };
 
     function updateView(ease, dt) {
-      const wide = p.width >= 900;
-      const narrow = p.width < 760;
+      const side = layout !== 'stacked';
       view.progress = lerp(view.progress, state.progress, ease);
       view.x = lerp(view.x, state.pointer.x, ease * 0.6);
       view.y = lerp(view.y, state.pointer.y, ease * 0.6);
-      view.offsetX = lerp(view.offsetX, wide ? p.width * 0.18 : 0, ease);
-      view.offsetY = lerp(view.offsetY, narrow ? -p.height * 0.16 : 0, ease);
-      view.scale = Math.min(wide ? p.width * 0.6 : p.width, p.height) * (narrow ? 0.36 : 0.32);
+      const area = Math.max(p.width - textEdge - RAIL_SPACE, p.width * 0.4);
+      view.offsetX = lerp(view.offsetX, side ? textEdge + area / 2 - p.width / 2 : 0, ease);
+      view.offsetY = lerp(view.offsetY, side ? 0 : -p.height * 0.18, ease);
+      view.scale = side
+        ? Math.min(area * 0.38, p.height * 0.31)
+        : Math.min(p.width * 0.9, p.height * 0.55) * 0.42;
+      view.pointSize = clamp(view.scale / 240, 0.75, 1.6);
 
       if (state.burst) {
         view.burst = 1;
@@ -130,7 +157,7 @@ export function createScene(state) {
 
     function drawDust() {
       const s = view.scale;
-      p.strokeWeight(1.2);
+      p.strokeWeight(1.2 * view.pointSize);
       p.stroke(236, 232, 225, 50);
       p.beginShape(p.POINTS);
       for (const [x, y, z] of dust) p.vertex(x * s, y * s, z * s);
@@ -142,7 +169,7 @@ export function createScene(state) {
       for (const batch of batches) {
         const [r, g, b] = mixRgb(start, end, batch.step);
         p.stroke(r, g, b, batch.sparkle ? 255 : 170);
-        p.strokeWeight(batch.sparkle ? 3 : 1.8);
+        p.strokeWeight((batch.sparkle ? 3 : 1.8) * view.pointSize);
         p.beginShape(p.POINTS);
         for (const i of batch.indices) {
           const o = i * 3;

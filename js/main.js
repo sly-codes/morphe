@@ -16,6 +16,7 @@ trackScroll(sections, state);
 revealOnScroll(sections);
 
 window.addEventListener('pointermove', (event) => {
+  if (event.pointerType !== 'mouse') return;
   state.pointer.x = event.clientX / window.innerWidth - 0.5;
   state.pointer.y = event.clientY / window.innerHeight - 0.5;
 });
@@ -37,7 +38,8 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-window.addEventListener('pointerdown', (event) => {
+// click (not pointerdown) so that a touch used to scroll does not trigger a pulse
+window.addEventListener('click', (event) => {
   if (event.target.closest('a, button')) return;
   state.burst = true;
   sound.pulse();

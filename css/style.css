@@ -8,7 +8,11 @@
   --serif: 'Instrument Serif', Georgia, serif;
   --mono: 'Geist Mono', ui-monospace, monospace;
   --gutter: clamp(20px, 6vw, 96px);
+  --pad-y: clamp(80px, 12vh, 120px);
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Read by scene.js to place the 3D form: side (landscape) or stacked (portrait) */
+  --layout: side;
 }
 
 *,
@@ -19,7 +23,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
 }
 
 body {
@@ -27,7 +30,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: clamp(13px, 0.25vw + 10.5px, 16px);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
@@ -72,7 +75,7 @@ a:focus-visible {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 62% 50%, transparent 35%, rgb(7 8 11 / 0.75) 100%),
+    radial-gradient(ellipse at 68% 50%, transparent 35%, rgb(7 8 11 / 0.75) 100%),
     linear-gradient(90deg, rgb(7 8 11 / 0.7), transparent 45%);
 }
 
@@ -85,7 +88,7 @@ a:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px var(--gutter) 40px;
+  padding: clamp(16px, 3.5vh, 28px) var(--gutter) 40px;
   background: linear-gradient(var(--bg) 45%, transparent);
   pointer-events: none;
 }
@@ -96,7 +99,7 @@ a:focus-visible {
 
 .brand {
   font-family: var(--serif);
-  font-size: 24px;
+  font-size: 1.7em;
   font-style: italic;
   letter-spacing: 0.01em;
 }
@@ -109,7 +112,7 @@ a:focus-visible {
 
 .topbar__meta {
   color: var(--text-faint);
-  font-size: 12px;
+  font-size: 0.86em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -133,7 +136,7 @@ a:focus-visible {
   background: rgb(7 8 11 / 0.4);
   color: var(--text-dim);
   font: inherit;
-  font-size: 12px;
+  font-size: 0.86em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
@@ -214,7 +217,7 @@ a:focus-visible {
   gap: 12px;
   padding: 4px 0;
   color: var(--text-faint);
-  font-size: 11px;
+  font-size: 0.8em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: color 0.3s;
@@ -241,15 +244,24 @@ a:focus-visible {
     transform 0.4s var(--ease);
 }
 
-.rail a:hover,
 .rail a[aria-current] {
   color: var(--text);
 }
 
-.rail a:hover span,
 .rail a[aria-current] span {
   opacity: 1;
   transform: none;
+}
+
+@media (hover: hover) {
+  .rail a:hover {
+    color: var(--text);
+  }
+
+  .rail a:hover span {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .rail a[aria-current]::after {
@@ -272,12 +284,15 @@ main {
   align-items: center;
   min-height: 100vh;
   min-height: 100svh;
-  padding: 96px var(--gutter);
-  scroll-snap-align: start;
+  padding: var(--pad-y) var(--gutter);
+}
+
+.panel:last-child {
+  padding-bottom: calc(var(--pad-y) + 32px);
 }
 
 .panel__body {
-  max-width: 420px;
+  max-width: clamp(300px, 34vw, 540px);
   opacity: 0;
   transform: translateY(24px);
   transition:
@@ -294,9 +309,9 @@ main {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 0 0 20px;
+  margin: 0 0 1.4em;
   color: var(--text-faint);
-  font-size: 12px;
+  font-size: 0.86em;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -314,51 +329,52 @@ main {
 }
 
 .panel__title {
-  margin: 0 0 20px;
+  margin: 0 0 0.2em;
   font-family: var(--serif);
-  font-size: clamp(56px, 8vw, 104px);
+  font-size: clamp(44px, min(8vw, 13vh), 124px);
   font-weight: 400;
   line-height: 0.95;
   letter-spacing: -0.02em;
 }
 
 .panel--hero .panel__title {
-  font-size: clamp(72px, 12vw, 160px);
+  font-size: clamp(60px, min(12vw, 21vh), 190px);
   font-style: italic;
 }
 
 .panel__text {
-  margin: 0 0 28px;
+  margin: 0 0 2em;
   color: var(--text-dim);
 }
 
 .formula {
   display: inline-block;
   margin: 0;
-  padding: 10px 14px;
+  max-width: 100%;
+  padding: 0.8em 1.1em;
   border: 1px solid var(--line);
   border-radius: 5px;
   background: rgb(236 232 225 / 0.03);
   color: var(--text);
-  font-size: 12.5px;
-  white-space: nowrap;
+  font-size: 0.9em;
 }
 
 .hint {
-  margin: 40px 0 0;
+  margin: 2.8em 0 0;
   color: var(--text-faint);
-  font-size: 12px;
+  font-size: 0.86em;
   animation: breathe 2.4s ease-in-out infinite;
 }
 
 .footer {
   position: absolute;
-  inset: auto var(--gutter) 28px;
+  inset: auto var(--gutter) clamp(16px, 3.5vh, 28px);
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 16px;
+  gap: 8px 16px;
   color: var(--text-faint);
-  font-size: 12px;
+  font-size: 0.86em;
 }
 
 .footer a {
@@ -376,43 +392,82 @@ main {
   }
 }
 
-/* Small screens: the form sits on top, the text at the bottom */
+/* Portrait screens (phones, tablets): the form sits on top, the text at the bottom */
 
-@media (max-width: 760px) {
+@media (max-aspect-ratio: 1/1), (max-width: 599px) {
+  :root {
+    --layout: stacked;
+    --pad-y: clamp(64px, 9vh, 112px);
+  }
+
   .panel {
     align-items: flex-end;
-    padding-bottom: 72px;
   }
 
   .panel__body {
-    max-width: none;
+    max-width: 560px;
+  }
+
+  .panel__title {
+    font-size: clamp(44px, 11vw, 112px);
+  }
+
+  .panel--hero .panel__title {
+    font-size: clamp(60px, 16vw, 160px);
   }
 
   .veil {
     background:
-      radial-gradient(ellipse at 50% 32%, transparent 30%, rgb(7 8 11 / 0.7) 90%),
-      linear-gradient(0deg, rgb(7 8 11 / 0.92) 25%, transparent 60%);
+      radial-gradient(ellipse at 50% 30%, transparent 30%, rgb(7 8 11 / 0.7) 90%),
+      linear-gradient(0deg, rgb(7 8 11 / 0.92) 30%, transparent 62%);
   }
 
   .rail {
-    top: 38%;
+    top: 30%;
     right: 14px;
   }
 
   .rail span {
     display: none;
   }
+}
 
-  .sound {
-    padding: 6px 10px;
-  }
-
+@media (max-width: 759px) {
   .topbar__meta {
     display: none;
   }
 
+  .sound {
+    padding: 6px 10px;
+  }
+}
+
+/* Short landscape screens (phones turned sideways, small laptops) */
+
+@media (min-aspect-ratio: 1/1) and (max-height: 560px) {
+  :root {
+    --pad-y: 64px;
+  }
+
+  .panel__index {
+    margin-bottom: 0.8em;
+  }
+
+  .panel__text {
+    margin-bottom: 1.2em;
+  }
+
+  .panel--hero .panel__title {
+    font-size: clamp(48px, 17vh, 120px);
+  }
+
   .formula {
-    white-space: normal;
+    font-size: 0.82em;
+  }
+
+  .hint,
+  .rail span {
+    display: none;
   }
 }
 
