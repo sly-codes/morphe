@@ -103,6 +103,7 @@ Any recent browser with WebGL: Chrome, Edge, Firefox and Safari, on desktop and 
 
 ## Credits
 
+- Made by [Kone Issa](https://issa.nocerv.com)
 - [p5.js](https://p5js.org) for the rendering
 - [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif) and [Geist Mono](https://fonts.google.com/specimen/Geist+Mono) from Google Fonts
 

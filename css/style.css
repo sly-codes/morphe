@@ -85,7 +85,8 @@ a:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px var(--gutter);
+  padding: 24px var(--gutter) 40px;
+  background: linear-gradient(var(--bg) 45%, transparent);
   pointer-events: none;
 }
 
@@ -105,6 +106,15 @@ a:focus-visible {
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.topbar__meta a {
+  color: var(--text-dim);
+  transition: color 0.3s;
+}
+
+.topbar__meta a:hover {
+  color: var(--accent);
 }
 
 .rail {
