@@ -28,9 +28,15 @@
 
     <header class="topbar">
       <a class="brand" href="#sphere">morphe</a>
-      <span class="topbar__meta">
-        p5.js · webgl · <a href="https://issa.nocerv.com" target="_blank" rel="noopener">by Kone Issa</a>
-      </span>
+      <div class="topbar__end">
+        <span class="topbar__meta">
+          p5.js · webgl · <a href="https://issa.nocerv.com" target="_blank" rel="noopener">by Kone Issa</a>
+        </span>
+        <button class="sound" type="button" aria-pressed="false" title="Toggle sound (M)" data-sound>
+          <span class="sound__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span data-sound-label>Sound off</span>
+        </button>
+      </div>
     </header>
 
     <nav class="rail" aria-label="Sections">
@@ -51,7 +57,7 @@
             next.
           </p>
           <p class="formula">θ = i · 137.5° &nbsp; y = 1 - 2i / n</p>
-          <p class="hint">Scroll to begin · click anywhere to pulse</p>
+          <p class="hint">Scroll to begin · click to pulse · M for sound</p>
         </div>
       </section>
 

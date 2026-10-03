@@ -81,10 +81,41 @@ function bloom(s, t, out) {
   out[2] = Math.sin(azimuth) * ring * r;
 }
 
+// notes: the chord played for each form, in Hz (one frequency per voice).
 export const shapes = [
-  { id: 'sphere', tilt: -0.3, colors: ['#f6efe4', '#8aa4ff'], position: sphere },
-  { id: 'knot', tilt: 0.25, colors: ['#ffc078', '#ff5c8a'], position: knot },
-  { id: 'wave', tilt: -0.6, colors: ['#86e3ff', '#5468ff'], position: wave },
-  { id: 'galaxy', tilt: -0.95, colors: ['#ffe6c2', '#a77bff'], position: galaxy },
-  { id: 'bloom', tilt: -0.3, colors: ['#ffd59a', '#ff7aa8'], position: bloom },
+  {
+    id: 'sphere',
+    tilt: -0.3,
+    colors: ['#f6efe4', '#8aa4ff'],
+    notes: [110.0, 164.81, 246.94, 329.63],
+    position: sphere,
+  },
+  {
+    id: 'knot',
+    tilt: 0.25,
+    colors: ['#ffc078', '#ff5c8a'],
+    notes: [98.0, 146.83, 220.0, 293.66],
+    position: knot,
+  },
+  {
+    id: 'wave',
+    tilt: -0.6,
+    colors: ['#86e3ff', '#5468ff'],
+    notes: [87.31, 130.81, 196.0, 261.63],
+    position: wave,
+  },
+  {
+    id: 'galaxy',
+    tilt: -0.95,
+    colors: ['#ffe6c2', '#a77bff'],
+    notes: [82.41, 123.47, 185.0, 246.94],
+    position: galaxy,
+  },
+  {
+    id: 'bloom',
+    tilt: -0.3,
+    colors: ['#ffd59a', '#ff7aa8'],
+    notes: [110.0, 164.81, 220.0, 277.18],
+    position: bloom,
+  },
 ];

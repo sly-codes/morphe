@@ -68,6 +68,7 @@ export function createScene(state) {
 
       updateView(ease, dt);
       const { current, next, k } = morphState();
+      state.morph = { current, next, k };
       updatePositions(shapes[current], shapes[next], k);
 
       const start = mixRgb(palettes[current][0], palettes[next][0], k);
@@ -118,7 +119,8 @@ export function createScene(state) {
       for (const s of seeds) {
         a.position(s, time, from);
         if (k > 0) b.position(s, time, to);
-        const push = 1 + lift * (s.c - 0.3) + view.burst * (0.25 + s.a * 0.5);
+        const push =
+          1 + lift * (s.c - 0.3) + view.burst * (0.25 + s.a * 0.5) + state.level * (0.05 + s.b * 0.15);
         const o = s.i * 3;
         for (let axis = 0; axis < 3; axis++) {
           positions[o + axis] = (k > 0 ? lerp(from[axis], to[axis], k) : from[axis]) * push;
