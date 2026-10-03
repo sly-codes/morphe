@@ -4,7 +4,9 @@ One cloud of 2,400 points, five mathematical forms. As you scroll, each form tur
 
 Built with plain HTML, CSS and JavaScript, and [p5.js](https://p5js.org) in WebGL mode. No build step, no framework.
 
-[▶ Watch the demo](video/demo.mp4)
+![Morphe demo](video/demo.gif)
+
+[Watch the full video with color](video/demo.mp4)
 
 ## Features
 
@@ -59,7 +61,8 @@ morphe/
 │   ├── shapes.js   The five forms and the point seeds
 │   └── scroll.js   Scroll progress, section navigation and reveal
 ├── video/
-│   └── demo.mp4    Demo recording
+│   ├── demo.gif    Short preview (README)
+│   └── demo.mp4    Full demo recording
 └── favicon.svg
 ```
 
