@@ -86,9 +86,66 @@ morphe/
 
 ## How it works
 
-<p align="center">
+<!-- <p align="center">
   <img src="video/diagram.png" alt="Architecture diagram" width="520">
-</p>
+</p> -->
+
+```mermaid
+flowchart TD
+
+subgraph group_page["Page and presentation"]
+  node_page["Page sections<br/>[index.html]"]
+  node_styles["Layout and styles<br/>[style.css]"]
+end
+
+subgraph group_interaction["Interaction and navigation"]
+  node_entry["App entry and state<br/>[main.js]"]
+  node_scroll["Scroll and reveal<br/>[scroll.js]"]
+end
+
+subgraph group_forms["Point forms"]
+  node_shapes["Seeds and five forms<br/>[shapes.js]"]
+end
+
+subgraph group_visualization["Scene visualization"]
+  node_scene["Morph and render<br/>[scene.js]"]
+end
+
+node_visitor(("Visitor"))
+node_p5["p5.js WebGL"]
+
+node_visitor -->|"scrolls"| node_scroll
+node_visitor -->|"moves and clicks"| node_entry
+node_entry -->|"tracks and reveals"| node_scroll
+node_entry -->|"creates scene"| node_scene
+node_entry -->|"queries sections"| node_page
+node_scene -->|"evaluates forms"| node_shapes
+node_entry -->|"instantiates sketch"| node_p5
+node_page -.->|"styled by"| node_styles
+node_page -->|"sections drive progress"| node_scroll
+
+click node_page "https://github.com/sly-codes/morphe/blob/main/index.html"
+click node_styles "https://github.com/sly-codes/morphe/blob/main/css/style.css"
+click node_entry "https://github.com/sly-codes/morphe/blob/main/js/main.js"
+click node_scroll "https://github.com/sly-codes/morphe/blob/main/js/scroll.js"
+click node_shapes "https://github.com/sly-codes/morphe/blob/main/js/shapes.js"
+click node_scene "https://github.com/sly-codes/morphe/blob/main/js/scene.js"
+
+classDef toneNeutral fill:#f8fafc,stroke:#334155,stroke-width:1.5px,color:#0f172a
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+classDef toneTeal fill:#ccfbf1,stroke:#0f766e,stroke-width:1.5px,color:#134e4a
+class node_page,node_styles toneBlue
+class node_entry,node_scroll toneAmber
+class node_shapes toneMint
+class node_scene toneRose
+class node_visitor,node_p5 toneIndigo
+```
+
+
 
 1. **Seeds.** Each of the 2,400 points gets a fixed seed: its index plus a few random numbers from a seeded generator, so the cloud looks the same on every load.
 2. **Forms.** A form is a function `(seed, time, out) => void` that writes a position inside a unit sphere. Forms are evaluated every frame, which is why they can move.
